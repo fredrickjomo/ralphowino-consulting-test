@@ -89,6 +89,13 @@
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
+                <textarea name="content" id="editor">
+                    <p>Here goes the initial content of the text area</p>
+                </textarea>
+                <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+                <script>
+                    CKEDITOR.replace( 'editor' );
+                </script>
             </div>
         </div>
     </body>
