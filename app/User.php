@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Hootlex\Friendships\Traits\Friendable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Profile;
@@ -9,6 +10,7 @@ use App\Profile;
 class User extends Authenticatable
 {
     use Notifiable;
+    use Friendable;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'gender','slug','photo','password',
+        'name', 'email', 'gender','slug','avatar','password',
     ];
 
 
@@ -29,6 +31,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
     public function profile(){
-        return $this->hasOne('App\Profile');
+        return$this->hasOne('App\Profile');
     }
+
 }

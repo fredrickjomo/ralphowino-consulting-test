@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Nairobi Social Network') }}</title>
+    <title>{{ config('app.name', 'Laravel Social Network') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -25,7 +25,7 @@
     <nav class="navbar navbar-expand-md navbar-light navbar-laravel"  style="background-color: #000000; ">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}" style="color: #fff;">
-                {{ config('app.name', 'Nairobi Social Network') }}
+                {{ config('app.name', 'Laravel Social Network') }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -36,9 +36,9 @@
 
                 <ul class="navbar-nav mr-auto">
                     @if(Auth::check())
-                    <li><a href="{{url('/profile')}}/{{Auth::user()->slug}}" style="color: #ffff;">My Profile</a> </li>
-                        @endif
+                    <li><a href="{{route('profile',['slug'=>Auth::user()->slug])}}"style="color: #fff;">My Profile</a> </li>
 
+                    @endif
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -54,10 +54,7 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown"  style="color: #fff">
-                                    <a class="dropdown-item" href="{{ route('profile.edit',Auth::user()->id) }}">
 
-                                        {{ __('Edit Profile') }}
-                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();" >

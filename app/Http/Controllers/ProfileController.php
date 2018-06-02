@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
@@ -16,7 +17,8 @@ class ProfileController extends Controller
     public function index($slug)
     {
         //
-        return view('profile.index');
+        $user=User::where('slug',$slug)->first();
+        return view('profiles.profile')->with(compact('user'));
     }
 
     /**
@@ -59,10 +61,10 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
         //
-        return view('profile.editProfile');
+        return view('profiles.edit')->with(compact('info',Auth::user()->profile));
     }
 
     /**
@@ -72,21 +74,26 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
-       $file=$request->file('photo');
-       $filename=$file->getClientOriginalName();
-       $path='images/profile_pics';
-       $file->move($path,$filename);
+  $this->validate($request,[
+      'country'=>'required',
+      'city'=>'required',
+      'about'=>'required',
+  ]);
+  Auth::user()->profile()->update([
+      'country'=>$request->country,
+      'city'=>$request->city,
+      'about'=>$request->about,
+  ]);
+  if($request->hasFile('avatar')){
+      Auth::user()->update([
+          'avatar'=>$request->avatar->store('public/avatars/uploaded_photos'),
+      ]);
+  }
+  Session::flash('success','Profile updated successfully');
+  return redirect()->back();
 
-       $profile=User::where('id',$id)->update([
-          'photo'=>$filename,
-
-       ]);
-       if ($profile){
-           return view('profile.index');
-       }
 
     }
 

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Nirobi Social Network'),
+    'name' => env('APP_NAME', 'Laravel Social Network'),
 
     /*
     |--------------------------------------------------------------------------

@@ -20,6 +20,7 @@
         "vue": "^2.5.16"
     },
     "dependencies": {
-        "@ckeditor/ckeditor5-build-classic": "^10.0.1"
+        "@ckeditor/ckeditor5-build-classic": "^10.0.1",
+        "vue-resource": "^1.5.1"
     }
 }

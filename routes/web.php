@@ -14,17 +14,38 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
 Auth::routes();
 
-
+Route::get('/home','HomeController@index');
 
 Route::group(['middleware'=>'auth'],function(){
-    Route::get('/home', 'HomeController@index')->name('home');
-   Route::get('/profile/{slug}','ProfileController@index');
-   Route::get('/changePhoto',function (){
-      return view('profile.pic');
-   });
-   Route::resource('profile','ProfileController');
+Route::get('/profile/{slug}',[
+    'uses'=>'ProfileController@index',
+    'as'=>'profile'
+]);
+    Route::get('/profile/edit/profile',[
+        'uses'=>'ProfileController@edit',
+        'as'=>'profile.edit'
+    ]);
+    Route::get('/profile/update/profile',[
+        'uses'=>'ProfileController@update',
+        'as'=>'profile.update'
+    ]);
+       Route::get('friendship_status/{id}',[
+        'uses'=>'FriendsController@check',
+        'as'=>'check'
+    ]);
+
+    Route::get('add_friend/{id}',[
+        'uses'=>'FriendsController@add_friend',
+        'as'=>'add_friend'
+    ]);
+
+    Route::get('accept_friend/{id}',[
+        'uses'=>'FriendsController@accept_friend',
+        'as'=>'accept_friend'
+    ]);
+
+
+
 });
-Route::get('/logout','Auth\LoginController@logout');
